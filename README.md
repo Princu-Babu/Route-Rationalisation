@@ -21,3 +21,9 @@ Reclassifies legacy networks into high-frequency Trunks and local Feeders.
 Calculates precise fleet requirements based on target headways (e.g., 5 mins) and dynamically calculated Cycle Times.
 
 Generates interactive Folium Dashboards with embedded KPIs.
+Change the OSRM_BASE_URL = "http://localhost:5000" as i had hosted a local osrm server to run this script
+currently researching and working more on how to improve the logic in the context of jammu city 
+initially i only had bare bones routes so i also had to find out the specific lat longs of the points by only searching up by name(used Arcgis to find thoose out)
+And the pois were found using openstreetmap data and i found around 170 unique pois 
+tried focusing majorly in jammu city
+dowload the worldpop population raster data to run the script
