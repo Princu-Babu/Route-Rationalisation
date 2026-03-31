@@ -1,0 +1,76 @@
+2026-03-28 17:18:01,153  INFO      ======================================================================
+2026-03-28 17:18:01,154  INFO        Jammu Matador Transit Rationalisation  —  Master Engine v5.0
+2026-03-28 17:18:01,154  INFO      ======================================================================
+2026-03-28 17:18:01,154  INFO      
+── PHASE 1: Data Ingestion, OSRM & Fleet Imputation ────────────────
+2026-03-28 17:18:01,155  INFO      Loading routes from 'routes.csv'
+2026-03-28 17:18:01,164  INFO        Loaded 794 routes.
+2026-03-28 17:18:01,164  INFO      Loading POIs from 'pois.csv'
+2026-03-28 17:18:01,168  INFO        Loaded 170 POIs.
+2026-03-28 17:18:01,169  INFO      Fetching OSRM geometries (794 routes, 12 workers)…
+2026-03-28 17:18:07,743  INFO        OSRM: 794/794 ok, 0 use circuity fallback.
+2026-03-28 17:18:07,743  INFO      Merging geometries and filtering…
+2026-03-28 17:18:07,848  INFO        Filter: 794 → 370 routes kept.
+2026-03-28 17:18:07,849  INFO      Counting Tier 1 and Tier 2 POIs within 250m of each route…
+2026-03-28 17:18:09,321  INFO      Imputing fleet sizes…
+2026-03-28 17:18:09,323  INFO        Fleet imputed for 347 zero-bus routes.
+2026-03-28 17:18:09,323  INFO      
+── PHASE 2: PTAL, Gravity Scores, Physics & Classification ─────────
+2026-03-28 17:18:09,324  INFO      Building virtual catchments (stop=250m, walk=400m)…
+2026-03-28 17:18:11,384  INFO        Catchments built for 370 routes.
+2026-03-28 17:18:11,385  INFO      Computing per-route population from raster: jammu_worldpop.tif
+2026-03-28 17:18:12,673  INFO        Population_Served max: 241,040
+2026-03-28 17:18:12,674  INFO      Computing two-component gravity demand scores…
+2026-03-28 17:18:12,676  INFO      Computing junction penalties (threshold=75°, +0 min/turn)…
+2026-03-28 17:18:13,055  INFO        368 routes have junction penalties.
+2026-03-28 17:18:13,056  INFO      Computing cycle times from OSRM duration + junction penalties…
+2026-03-28 17:18:13,057  INFO        Cycle time mean: 63.0  max: 205.6
+2026-03-28 17:18:13,057  INFO      Computing corridor frequency scores (STRtree)…
+2026-03-28 17:18:17,066  INFO        Frequency mean: 221.8  max: 326
+2026-03-28 17:18:17,068  INFO      Computing pairwise overlap matrix…
+2026-03-28 17:18:48,006  INFO        Overlap matrix (370×370) done.
+2026-03-28 17:18:48,008  INFO      Union-Find clustering (threshold=65%)…
+2026-03-28 17:18:48,012  INFO        14 clusters formed.
+2026-03-28 17:18:48,016  INFO      Classifying routes (Aggressive deduplication & Trunk creation)…
+2026-03-28 17:18:48,256  INFO        Trunks: 6 | Merged: 7 | Feeders: 357
+2026-03-28 17:18:48,256  INFO      Applying terminal capacity constraints…
+2026-03-28 17:18:48,258  INFO      Computing deduplicated network population (dissolved union)…
+2026-03-28 17:18:49,243  INFO        Deduplicated network population: 1,388,702
+2026-03-28 17:18:49,246  INFO      ====================================================================
+2026-03-28 17:18:49,246  INFO        NETWORK EFFICIENCY & IMPACT SCORE
+2026-03-28 17:18:49,246  INFO        Deduplicated Pop. Served : 1,388,702 residents
+2026-03-28 17:18:49,247  INFO        Active Fleet Required    : 1756 minibuses
+2026-03-28 17:18:49,247  INFO        Fleet Efficiency         : 791 residents per minibus
+2026-03-28 17:18:49,247  INFO        Total Daily Time Saved   : 202,267,105 person-minutes
+2026-03-28 17:18:49,247  INFO      ====================================================================
+2026-03-28 17:18:49,247  INFO      
+── PHASE 3: Mega Summary Log ────────────────────────────────────────
+2026-03-28 17:18:49,248  INFO      Generating Rationalisation Log → Rationalisation_Log.csv
+2026-03-28 17:18:49,263  INFO        Log written: 370 rows.
+2026-03-28 17:18:49,263  INFO      
+── PHASE 4: Cartography & Dashboard Export ─────────────────────────
+2026-03-28 17:18:49,264  INFO      Building Master Transit Map → Master_Transit_Map.html
+2026-03-28 17:18:52,673  INFO        Master map saved.
+2026-03-28 17:18:52,673  INFO      Building individual route maps → route_maps/
+2026-03-28 17:19:04,168  INFO        Generated 363 individual maps.
+2026-03-28 17:19:04,168  INFO      Exporting Operational CSV → Rationalised_Routes.csv
+2026-03-28 17:19:04,174  INFO        CSV written: 370 rows.
+2026-03-28 17:19:04,174  INFO      Exporting Operational XLSX → Rationalised_Routes.xlsx
+2026-03-28 17:19:04,738  INFO        XLSX written.
+2026-03-28 17:19:04,738  INFO      Exporting Passenger Impact Matrix → Passenger_Impact.csv
+2026-03-28 17:19:04,741  INFO        Total daily person-minutes saved: 207,227,191
+2026-03-28 17:19:04,744  INFO      Exporting Network GeoJSON → Rationalised_Routes.geojson
+2026-03-28 17:19:05,556  INFO      Created 363 records
+2026-03-28 17:19:05,557  INFO        GeoJSON written: 363 active features.
+2026-03-28 17:19:05,559  INFO      
+======================================================================
+2026-03-28 17:19:05,559  INFO        PIPELINE COMPLETE  (64.4 s)
+2026-03-28 17:19:05,559  INFO        Network Score = INR 202,267,105
+2026-03-28 17:19:05,560  INFO        Outputs:
+2026-03-28 17:19:05,560  INFO          Master_Transit_Map.html                       sidebar + KPI map
+2026-03-28 17:19:05,560  INFO          Rationalisation_Log.csv                       LLM chatbot log
+2026-03-28 17:19:05,560  INFO          Passenger_Impact.csv                          passenger time savings
+2026-03-28 17:19:05,561  INFO          Rationalised_Routes.csv                       operational CSV
+2026-03-28 17:19:05,561  INFO          Rationalised_Routes.xlsx                      operational XLSX
+2026-03-28 17:19:05,561  INFO          route_maps/                                   individual route maps
+2026-03-28 17:19:05,561  INFO      ======================================================================
