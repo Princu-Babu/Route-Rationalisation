@@ -1,0 +1,4 @@
+Route_ID,Route_Name,Start_Lat,Start_Lon,End_Lat,End_Lon,Via_Coordinates,Minibus_Count
+R001,Janipur to Satwari,32.751,74.832,32.693,74.855,"[[74.84, 32.725], [74.861, 32.701]]",18
+R002,Roop Nagar to Satwari,32.762,74.831,32.693,74.855,"[[74.84, 32.725], [74.861, 32.701]]",12
+R003,Channi Himmat to Railway Station,32.705,74.891,32.712,74.882,[],5
